@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="background-text">LOGIN</div>
+    <div class="form-container">
+        <form action="{{ url_for('login') }}" method="post">
+            <div class="input-container">
+                <input type="text" name="username" id="username" required placeholder = " ">
+                <label for="username">TÊN TÀI KHOẢN</label>
+            </div>
+            <div class="input-container" method="post">
+                <input type="password" name="password" id="password" required placeholder=" ">
+                <label for="password">MẬT KHẨU</label>
+                <button type="button" onclick="togglePassword()" class="toggle-password">
+                    <span id="eye-icon">🙈</span>
+                </button>
+            </div>
+            <p class="register-link"> Chưa Có Tài Khoản ?
+                <a class="" href="{{ url_for('register') }}">Đăng ký tại đây</a> <!-- Liên kết tới trang đăng ký -->
+            </p>
+            <input type="submit" value="ĐĂNG NHẬP">
+        </form>
+    </div>
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon = document.getElementById("eye-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.textContent = "🙊"; 
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.textContent = "🙈"; 
+            }
+        }
+    </script>
+</body>
+</html>

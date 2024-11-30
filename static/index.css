@@ -1,0 +1,335 @@
+/* Reset margin và padding cho tất cả các phần tử */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Cấu trúc chung */
+body {
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: black;
+}
+
+/* Header */
+header {
+    background-color: #212529;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo h1 {
+    font-size: 24px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Body */
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+section h2 {
+    font-size: 28px;
+    color: #333;
+}
+
+section p {
+    font-size: 18px;
+    color: #666;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+ul li {
+    font-size: 18px;
+    color: #444;
+}
+
+
+/* From Uiverse.io by Mike11jr */ 
+.btn {
+    padding: 1.1em 2em;
+    background: none;
+    border: 2px solid #fff;
+    font-size: 15px;
+    color: #131313;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    border-radius: 12px;
+    background-color: #ecd448;
+    font-weight: bolder;
+    box-shadow: 0 2px 0 2px #000;
+   }
+   
+   .btn:before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 120%;
+    background-color: #ff6700;
+    top: 50%;
+    transform: skewX(30deg) translate(-150%, -50%);
+    transition: all 0.5s;
+   }
+   
+   .btn:hover {
+    background-color: #4cc9f0;
+    color: #fff;
+    box-shadow: 0 2px 0 2px #0d3b66;
+   }
+   
+   .btn:hover::before {
+    transform: skewX(30deg) translate(150%, -50%);
+    transition-delay: 0.1s;
+   }
+   
+   .btn:active {
+    transform: scale(0.9);
+   }
+
+ /* SLide Bar */
+
+ .sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    float: left;
+}
+
+.sidebar h3 {
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-card h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.product-card button {
+    background-color: #4cc9f0;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    background-color: #4cc9f0;
+    color: #fff;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+/* From Uiverse.io by MuhammadHasann */ 
+.card {
+    --bg-card: #27272a;
+    --primary: #6d28d9;
+    --primary-800: #4c1d95;
+    --primary-shadow: #2e1065;
+    --light: #d9d9d9;
+    --zinc-800: #18181b;
+    --bg-linear: linear-gradient(0deg, var(--primary) 50%, var(--light) 125%);
+  
+    position: relative;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    width: 14rem;
+    background-color: var(--bg-card);
+  
+    border-radius: 1rem;
+  }
+  
+  .image_container {
+    overflow: hidden;
+    cursor: pointer;
+  
+    position: relative;
+    z-index: 5;
+  
+    width: 100%;
+    height: 8rem;
+    background-color: var(--primary-800);
+  
+    border-radius: 0.5rem;
+  }
+  
+  .image_container .image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    width: 3rem;
+    fill: var(--light);
+  }
+  
+  .title {
+    overflow: clip;
+  
+    width: 100%;
+  
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--light);
+    text-transform: capitalize;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .size {
+    font-size: 0.75rem;
+    color: var(--light);
+  }
+  
+  .list-size {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  
+    margin-top: 0.25rem;
+  }
+  
+  .list-size .item-list {
+    list-style: none;
+  }
+  
+  .list-size .item-list-button {
+    cursor: pointer;
+  
+    padding: 0.5rem;
+    background-color: var(--zinc-800);
+  
+    font-size: 0.75rem;
+    color: var(--light);
+  
+    border: 2px solid var(--zinc-800);
+    border-radius: 0.25rem;
+  
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .item-list-button:hover {
+    border: 2px solid var(--light);
+  }
+  .item-list-button:focus {
+    background-color: var(--primary);
+  
+    border: 2px solid var(--primary-shadow);
+  
+    box-shadow: inset 0px 1px 4px var(--primary-shadow);
+  }
+  
+  .action {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--light);
+  }
+  
+  .cart-button {
+    cursor: pointer;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+  
+    padding: 0.5rem;
+    width: 100%;
+    background-image: var(--bg-linear);
+  
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--light);
+    text-wrap: nowrap;
+  
+    border: 2px solid hsla(262, 83%, 58%, 0.5);
+    border-radius: 0.5rem;
+    box-shadow: inset 0 0 0.25rem 1px var(--light);
+  }
+  
+  .cart-button .cart-icon {
+    width: 1rem;
+  }
+  

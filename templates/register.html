@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        // Hàm để hiển thị thông báo lỗi trong hộp thoại
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+</head>
+<body>
+    <div class="background-text">REGISTER</div>
+    <div class="form-container">
+        <form action="/register" method="post">
+            <div class="input-container">
+                <input type="text" id="username" name="username" required placeholder=" ">
+                <label for="username">TÊN TÀI KHOẢN</label>
+            </div>
+
+            <div class="input-container">
+                <input type="password" id="password" name="password" required placeholder=" ">
+                <label for="password">MẬT KHẨU</label>
+            </div>
+
+            <div class="input-container">
+                <input type="password" id="confirm_password" name="confirm_password" required placeholder=" ">
+                <label for="confirm_password">XÁC NHẬN MẬT KHẨU</label>
+            </div>
+
+            <div class="input-container">
+                <input type="email" id="email" name="email" required placeholder=" ">
+                <label for="email">GMAIL</label>
+            </div>
+
+            <div class="input-container">
+                <input type="text" id="phonenumber" name="phonenumber" required placeholder=" ">
+                <label for="phonenumber">SỐ ĐIỆN THOẠI</label>
+            </div>
+
+            <input type="submit" name="register" value="Đăng Ký">
+            <p class="register-link">Đã có tài khoản? <a href="{{ url_for('login') }}">Đăng nhập</a></p>
+        </form>
+    </div>
+
+    {% if error_message %}
+        <script>
+            // Hiển thị thông báo lỗi trong hộp thoại khi có thông báo lỗi
+            showAlert("{{ error_message }}");
+        </script>
+    {% endif %}
+</body>
+</html>

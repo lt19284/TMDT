@@ -1,0 +1,143 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* chuyển động */
+.background-text {
+    position: absolute;
+    top: 50%; /* Đặt chữ ở giữa theo chiều dọc */
+    left: -100%; /* Bắt đầu từ bên trái ra ngoài màn hình */
+    transform: translateY(-50%);
+    font-size: 10rem; /* Kích thước chữ lớn */
+    color: #FFD700; /* Màu vàng */
+    white-space: nowrap; /* Ngăn không cho chữ xuống dòng */
+    animation: moveText 9s linear infinite; /* Hiệu ứng chuyển động */
+}
+@keyframes moveText {
+    0% {
+        left: -100%; /* Bắt đầu từ bên trái */
+    }
+    50% {
+        left: calc(10% - 5rem); /* Di chuyển sang bên phải */
+    }
+    80% {
+        left: calc(10% - 5rem); /* Di chuyển sang bên phải */
+    }
+    100%{
+        right: -100;
+    }
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Hộp Chứa Form đăng ký */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #1C1C1C;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    margin-left: auto;    /* Giữ lại vị trí bên trái */
+    margin-right: 80px;   /* Giữ lại vị trí bên phải */
+    margin-top: 100px;    /* Giữ lại khoảng cách ở phía trên */
+    margin-bottom: 100px; /* Giữ lại khoảng cách phía dưới */
+    z-index: 2;
+}
+
+/* Style Nhãn (Label) */
+label {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    font-size: 14px;
+    color: #FFD700;
+    pointer-events: none;
+    transition: 0.2s ease all;
+}
+
+/* Placeholder và Label */
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -10px; /* Di chuyển label lên trên */
+    font-size: 12px; /* Thay đổi kích thước label */
+    color: #DC143C; /* Thay đổi màu sắc */
+}
+
+/* Style ô điền thông tin */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: none; /* Ẩn khung viền */
+    border-bottom: 2px solid #FFD700; /* Thêm đường kẻ ngang */
+    border-radius: 0; /* Bỏ bo góc */
+    box-sizing: border-box;
+    color: #FFF;
+    font-size: 24px;
+    background-color: transparent; /* Nền trong suốt */
+    transition: border-color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+input:focus {
+    outline: none; /* Bỏ viền ngoài */
+}
+
+/* Styles Submit */
+input[type="submit"] {
+    background-color: #FFD700;
+    color: black;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;    
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Thay đổi màu khi hover */
+input[type="submit"]:hover {
+    background-color: #DC143C; /* Màu nền khi hover */
+    color: #FFF; /* Chữ màu trắng khi hover */
+}
+/*Nút Hiện mật khẩu*/
+.input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-container input[type="password"],
+.input-container input[type="text"] {
+    width: 100%;
+    padding-right: 40px; /* Tạo khoảng trống cho biểu tượng "mắt" */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+.register-link{
+    color: #FFD700;
+}
