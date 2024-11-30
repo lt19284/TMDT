@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request, redirect, flash, session, url_for
+from flask import Flask, render_template, request, redirect, flash, session, url_for, jsonify
 import mysql.connector
 from mysql.connector import Error
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+import psycopg2
 
+app = Flask(__name__)
+app.secret_key = "172.0.0.1"
 
 #Đọc Biến Môi Trường
 db_url = os.getenv("DATABASE_URL")
@@ -15,18 +18,19 @@ print("SecretKey:", secret_key)
 app = Flask(__name__)
 app.secret_key = '192.168.0.1'
  
-def create_connection():
-    """Tạo kết nối đến cơ sở dữ liệu."""
+#Tạo kết nối đến database
+def create_connect():
     try:
-        connection = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='tmdt'
-        )
-        return connection
-    except Error as e:
-        print(f"Error: {e}")
+        conn = psycopg2.connect(
+        dbname = "tmdt_db_f6sg",
+        user = "tmdt_db_f6sg_user",
+        password = "vLP9RsiNLx9UdXQiPWPvBwCDuFfTAcfG",
+        host = "dpg-ct586h9u0jms73aci1s0-a.oregon-postgres.render.com",
+        post = "5432"
+    )
+        return conn
+    except Exception as e:
+        print(f"Lỗi Kết Nối: {e}")
         return None
 
 @app.route("/")
@@ -50,7 +54,7 @@ def register():
         hashed_password = generate_password_hash(password)
 
         try:
-            connection = create_connection()
+            connection = create_connect()
             if connection is None:
                 return render_template('register.html', error_message="Lỗi kết nối cơ sở dữ liệu!")
 
@@ -82,7 +86,7 @@ def login():
         password = request.form.get('password')
 
         try:
-            connection = create_connection()
+            connection = create_connect()
             if connection is None:
                 return render_template('login.html', error_message="Lỗi Kết Nối Cơ Sở Dữ Liệu")
 
@@ -108,7 +112,7 @@ def login():
             return render_template('login.html')
 
         finally:
-            if connection and connection.is_connected():
+            if connection:
                 connection.close()  # Đóng kết nối ở đây
 
     return render_template('login.html')
@@ -157,7 +161,7 @@ def add_product():
 
             try:
                 #lưu ảnh sản phẩm vào data 
-                connection = create_connection()
+                connection = create_connect()
                 if connection is None:
                     flash("Lỗi Kết Nối Đến Cơ Sở Dữ Liệu", "error!!")
                     return redirect(url_for('add_product'))
