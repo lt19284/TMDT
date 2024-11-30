@@ -2,7 +2,16 @@ from flask import Flask, render_template, request, redirect, flash, session, url
 import mysql.connector
 from mysql.connector import Error
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
+
+#Đọc Biến Môi Trường
+db_url = os.getenv("DATABASE_URL")
+secret_key = os.getenv("SECRET_KEY")
+print("database URL:", db_url)
+print("SecretKey:", secret_key)
+
+#Kết nối database và Flask
 app = Flask(__name__)
 app.secret_key = '192.168.0.1'
  
@@ -171,5 +180,7 @@ def add_product():
     return render_template('add_product.html')
 
 if __name__ == '__main__':
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0",port=port)
     app.run(debug=True)
 
