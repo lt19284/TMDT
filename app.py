@@ -180,7 +180,7 @@ def add_product():
     return render_template('add_product.html')
 
 if __name__ == '__main__':
-    port = int(os.getenv("PORT", 80))
-    app.run(host="0.0.0.0",port=port)
+    port = int(os.getenv("PORT", 10080))
+    app.run(host="127.0.0.1",port=port)
     app.run(debug=True)
 
