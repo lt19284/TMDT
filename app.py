@@ -26,7 +26,7 @@ def create_connect():
         user = "tmdt_db_f6sg_user",
         password = "vLP9RsiNLx9UdXQiPWPvBwCDuFfTAcfG",
         host = "dpg-ct586h9u0jms73aci1s0-a.oregon-postgres.render.com",
-        post = "5432"
+        port = "5432"
     )
         return conn
     except Exception as e:
@@ -36,6 +36,7 @@ def create_connect():
 @app.route("/")
 def index():
     return render_template('index.html')
+
 # Đăng ký Tài Khoản
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -44,38 +45,47 @@ def register():
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
         email = request.form.get('email')
-        phonenumber = request.form.get('phonenumber')
 
-        # Kiểm tra mật khẩu
         if password != confirm_password:
-            return render_template('register.html', error_message="Mật khẩu không khớp, vui lòng thử lại!")
+            return render_template('register.html', error_message="Mật khẩu không khớp!")
 
-        # Mã hóa mật khẩu trước khi lưu
         hashed_password = generate_password_hash(password)
 
         try:
             connection = create_connect()
             if connection is None:
-                return render_template('register.html', error_message="Lỗi kết nối cơ sở dữ liệu!")
+                return render_template('register.html', error_message="Không thể kết nối cơ sở dữ liệu!")
 
             cursor = connection.cursor()
-            insert_query = "INSERT INTO users (username, Password, Email, PhoneNumber) VALUES (%s, %s, %s, %s)"
-            cursor.execute(insert_query, (username, hashed_password, email, phonenumber))
+
+            # Kiểm tra trùng lặp username hoặc email
+            check_query = "SELECT username, email FROM users WHERE username = %s OR email = %s"
+            cursor.execute(check_query, (username, email))
+            existing_user = cursor.fetchone()
+
+            if existing_user:
+                return render_template('register.html', error_message="Tên đăng nhập hoặc email đã tồn tại!")
+
+            # Chèn thông tin vào bảng
+            insert_query = """
+                INSERT INTO users (username, email, password_hash)
+                VALUES (%s, %s, %s)
+            """
+            cursor.execute(insert_query, (username, email, hashed_password))
             connection.commit()
 
-            flash("Đăng ký thành công!")
+            flash("Đăng ký thành công! Vui lòng đăng nhập.")
             return redirect(url_for('login'))
 
-        except Error as e:
-            print(f"Error: {e}")
-            flash("Đã xảy ra lỗi trong quá trình đăng ký.")
-            return render_template('register.html')
+        except psycopg2.Error as e:
+            print(f"Database Error: {e}")
+            return render_template('register.html', error_message="Đã xảy ra lỗi trong quá trình đăng ký.")
 
         finally:
             if cursor:
-                cursor.close()  # Đóng cursor ở đây
-            if connection and connection.is_connected():
-                connection.close()  # Đóng kết nối ở đây
+                cursor.close()
+            if connection:
+                connection.close()
 
     return render_template('register.html')
 # Đăng Nhập Người Dùng
@@ -88,34 +98,41 @@ def login():
         try:
             connection = create_connect()
             if connection is None:
-                return render_template('login.html', error_message="Lỗi Kết Nối Cơ Sở Dữ Liệu")
+                return render_template('login.html', error_message="Không thể kết nối cơ sở dữ liệu.")
 
             cursor = connection.cursor()
-            query = "SELECT Password FROM users WHERE username = %s"
+            query = "SELECT id, password_hash FROM users WHERE username = %s"
             cursor.execute(query, (username,))
-            result = cursor.fetchone()
+            user = cursor.fetchone()
 
-            cursor.close()  # Đóng cursor ngay sau khi đã lấy kết quả
-
-            if result is None:
+            if user is None:
                 return render_template('login.html', error_message="Tên đăng nhập không tồn tại!")
-            if check_password_hash(result[0], password):
+
+            user_id, hashed_password = user
+            if check_password_hash(hashed_password, password):
+                # Cập nhật last_login
+                update_query = "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = %s"
+                cursor.execute(update_query, (user_id,))
+                connection.commit()
+
                 session['username'] = username
-                flash("Đăng Nhập Thành Công!")
-                return redirect(url_for('index'))  # Chuyển đến trang chính khi đăng nhập thành công
+                flash("Đăng nhập thành công!")
+                return redirect(url_for('index'))
             else:
                 return render_template('login.html', error_message="Mật khẩu không đúng!")
 
-        except Error as e:
-            print(f"Error: {e}")
-            flash("Đã xảy ra lỗi trong quá trình đăng nhập.")
-            return render_template('login.html')
+        except psycopg2.Error as e:
+            print(f"Database Error: {e}")
+            return render_template('login.html', error_message="Đã xảy ra lỗi trong quá trình đăng nhập.")
 
         finally:
+            if cursor:
+                cursor.close()
             if connection:
-                connection.close()  # Đóng kết nối ở đây
+                connection.close()
 
     return render_template('login.html')
+
 # Log Out Người Dùng
 @app.route('/logout')
 def logout():
