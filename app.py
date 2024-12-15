@@ -211,9 +211,9 @@ data = [
 def home():
     return render_template('index.html')
 
-@app.route('/search', methods=['POST'])
-def search():
-    query = request.form.get('search')  # Lấy từ khóa tìm kiếm từ form
+@app.route('/index', methods=['POST'])
+def index():
+    query = request.form.get('index')  # Lấy từ khóa tìm kiếm từ form
     if not query:
         return render_template('index.html', results=[], error="Vui lòng nhập từ khóa tìm kiếm.")
 
