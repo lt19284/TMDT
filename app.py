@@ -199,6 +199,31 @@ def add_product():
                 if connection and connection.is_connected():
                     connection.close()
     return render_template('add_product.html')
+ #thanh tim kiem.
+data = [
+    {"id": 1, "name": "Điện thoại iPhone 15", "category": "Điện Thoại"},
+    {"id": 2, "name": "Laptop Dell XPS 13", "category": "Laptop"},
+    {"id": 3, "name": "Tai nghe Bluetooth", "category": "Phụ Kiện"},
+    {"id": 4, "name": "Bàn ủi hơi nước", "category": "Đồ Gia Dụng"},
+]
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/search', methods=['POST'])
+def search():
+    query = request.form.get('search')  # Lấy từ khóa tìm kiếm từ form
+    if not query:
+        return render_template('index.html', results=[], error="Vui lòng nhập từ khóa tìm kiếm.")
+
+    # Lọc kết quả theo từ khóa (không phân biệt chữ hoa/thường)
+    results = [item for item in data if query.lower() in item['name'].lower()]
+
+    return render_template('index.html', results=results, query=query)
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 10080))
