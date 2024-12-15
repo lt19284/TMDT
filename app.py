@@ -199,28 +199,27 @@ def add_product():
                 if connection and connection.is_connected():
                     connection.close()
     return render_template('add_product.html')
- #thanh tim kiem.
-data = [
-    {"id": 1, "name": "Điện thoại iPhone 15", "category": "Điện Thoại"},
-    {"id": 2, "name": "Laptop Dell XPS 13", "category": "Laptop"},
-    {"id": 3, "name": "Tai nghe Bluetooth", "category": "Phụ Kiện"},
-    {"id": 4, "name": "Bàn ủi hơi nước", "category": "Đồ Gia Dụng"},
-]
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
 @app.route('/index', methods=['POST'])
-def index():
-    query = request.form.get('index')  # Lấy từ khóa tìm kiếm từ form
+def search():
+    query = request.form.get('search')  # Lấy từ khóa từ thanh tìm kiếm
     if not query:
-        return render_template('index.html', results=[], error="Vui lòng nhập từ khóa tìm kiếm.")
+        return "Vui lòng nhập từ khóa tìm kiếm."
 
-    # Lọc kết quả theo từ khóa (không phân biệt chữ hoa/thường)
-    results = [item for item in data if query.lower() in item['name'].lower()]
+    # Giả lập kết quả tìm kiếm (hoặc thay bằng cơ sở dữ liệu thực tế)
+    products = [
+        {"name": "Điện Thoại Samsung", "category": "Điện Thoại"},
+        {"name": "Laptop Dell XPS 15", "category": "Laptop"},
+        {"name": "Tai Nghe Bluetooth", "category": "Phụ Kiện"},
+        {"name": "Nồi Chiên Không Dầu", "category": "Đồ Gia Dụng"},
+    ]
 
-    return render_template('index.html', results=results, query=query)
+    # Lọc kết quả
+    results = [p for p in products if query.lower() in p['name'].lower()]
+    if not results:
+        return f"Không tìm thấy kết quả cho '{query}'."
+
+    return f"Kết quả tìm kiếm cho '{query}': {results}"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
