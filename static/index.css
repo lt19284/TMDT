@@ -332,4 +332,51 @@ ul li {
   .cart-button .cart-icon {
     width: 1rem;
   }
+/* Thanh Tìm Kiếm */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #212529;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-container input[type="text"] {
+    width: 300px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #4cc9f0;
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-container input[type="text"]:focus {
+    border-color: #ff6700;
+    box-shadow: 0 0 10px rgba(255, 103, 0, 0.5);
+}
+
+.search-container button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #4cc9f0;
+    color: white;
+    border: 2px solid #4cc9f0;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-container button:hover {
+    background-color: #ff6700;
+    border-color: #ff6700;
+}
+
+.search-container button:active {
+    transform: scale(0.95);
+}
+
   
