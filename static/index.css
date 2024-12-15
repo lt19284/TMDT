@@ -24,7 +24,7 @@ header {
     color: white;
     padding: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -39,6 +39,7 @@ header nav ul {
     display: flex;
     justify-content: center; /* Căn giữa các mục trong thanh menu */
     margin: 0;
+    width: 100%;
 }
 
 header nav ul li {
@@ -102,7 +103,7 @@ header nav ul li a:hover {
     transform: scale(0.95);
 }
 
-/* Slidebar */
+/* Sidebar */
 .sidebar {
     width: 250px;
     background-color: #f4f4f4;
@@ -141,11 +142,12 @@ header nav ul li a:hover {
 .main-content {
     margin-left: 270px;
     padding: 20px;
-    width: 100%;
+    width: calc(100% - 270px);
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Product Grid */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -200,6 +202,7 @@ header nav ul li a:hover {
     width: 100%;
 }
 
+/* Card */
 .card {
     --bg-card: #27272a;
     --primary: #6d28d9;
