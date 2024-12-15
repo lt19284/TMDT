@@ -23,40 +23,15 @@
                 <li><a href="#">Dịch Vụ</a></li>
             </ul>
         </nav>  
-       
+         <!-- Thêm form tìm kiếm -->
+    <form class="d-flex search-bar" role="search" action="/search" method="POST">
+      <input class="form-control me-2" name="search" type="search" placeholder="Search..." aria-label="Search">
+      <button class="btn btn-outline-light" type="submit">Tìm kiếm</button>
+    </form>
         
         <button class="btn" onclick="window.location.href='/login';"> Login
         </button>
-    <div class="container mt-5">
-    <h1 class="text-center">Tìm Kiếm Sản Phẩm</h1>
-    <form action="/search" method="POST" class="my-4">
-        <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Nhập từ khóa tìm kiếm...">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
-            </div>
-        </div>
-    </form>
     
-    {% if error %}
-        <div class="alert alert-danger">{{ error }}</div>
-    {% endif %}
-    
-    {% if query %}
-        <h3>Kết quả cho: "{{ query }}"</h3>
-        {% if results %}
-            <ul class="list-group mt-3">
-                {% for item in results %}
-                    <li class="list-group-item">
-                        <strong>{{ item.name }}</strong> - <em>{{ item.category }}</em>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-muted">Không tìm thấy kết quả nào.</p>
-        {% endif %}
-    {% endif %}
-</div>
     </header>
 
     <!-- Body -->
